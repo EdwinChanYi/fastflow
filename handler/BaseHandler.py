@@ -8,7 +8,6 @@ import sys
 sys.path.append('../')
 from conf import constant
 from common import Logger
-from model.ShopModel import *
 from module.BaseModule import BaseObj
 from common.Function import json_encode
 
@@ -71,8 +70,9 @@ class BaseHandler(tornado.web.RequestHandler):
         log.info(msg)
         # 初始化商店信息
         if self._init_shop:
-            shop_model = ShopModel()
-            self._shop = await shop_model.findByHost(host=self.request.host)
+            # shop_model = ShopModel()
+            # self._shop = await shop_model.findByHost(host=self.request.host)
+            pass
 
     # 清理和日志
     def on_finish(self):
@@ -122,8 +122,8 @@ class BaseHandler(tornado.web.RequestHandler):
     # 用过域名获取db，失败抛出异常,已弃用
     async def get_db_by_host(self):
         host = self.request.host
-        shop_model = ShopModel()
-        row = await shop_model.findByHost(host)
+        # shop_model = ShopModel()
+        row = []
         if row:
             return row.get('db')
         else:
