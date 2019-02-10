@@ -28,6 +28,14 @@ def redis_add(**redisType):
 	return decorator
 
 
+def redis_modify(**redisType):
+	def decorator(func):
+		def wrapper(*args, **kwgs):
+			func(*args, **kwgs)
+		return wrapper
+	return decorator
+
+
 class DBMgr(BaseModel):
 
 	@redis_del()
@@ -64,3 +72,18 @@ class DBMgr(BaseModel):
 			batchStr.append(insertOneData)
 		instertSql = 'Replace INTO {}({}) VALUES {}'.format(table, ",".join(keys), ",".join(batchStr))
 		return self.insert(instertSql, mod=database)
+
+	@redis_modify()
+	async def Modify(self, table, modifyData, condition, database="fastflow"):
+		if not len(modifyData):
+			return -1
+		batchStr = []
+		for key, value in modifyData.items():
+			batchStr.append("{}={}".format(key, value))
+		condStr = []
+		for key, value in condition:
+			condStr.append("{}={}".format(key, value))
+		updateSql = 'UPDATE FROM {} SET {} WHERE {}'.format(table,
+		        ",".join(batchStr), " AND ".join(condStr))
+		return self.update(updateSql, mod=database)
+
