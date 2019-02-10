@@ -52,11 +52,15 @@ class DBMgr(BaseModel):
 		return self.many(selectSql, limit, mod=database)
 
 	@redis_add()
-	async def Add(self, table, database="fastflow", **kwgs):
-		if not len(kwgs):
+	async def Add(self, table, keys, dataList, database="fastflow"):
+		if not len(dataList):
 			return -1
 		batchStr = []
-		for key, value in kwgs.items():
-			batchStr.append("{}={}".format(key, value))
-		instertSql = 'INSERT INTO {}({}) VALUES {}'.format(table, ",".join(kwgs.keys()), ",".join(batchStr))
+		for data in dataList:
+			insertOneData = []
+			for key, value in data.items():
+				insertOneData.append("{}={}".format(key, value))
+			insertOneData = "({})".format(",".join(insertOneData))
+			batchStr.append(insertOneData)
+		instertSql = 'Replace INTO {}({}) VALUES {}'.format(table, ",".join(keys), ",".join(batchStr))
 		return self.insert(instertSql, mod=database)
