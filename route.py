@@ -9,6 +9,13 @@ from handler import *
 route = [
     # 微信
     (r"/wechatVerify", WechatVerifyHandler, None, '微信接入验证'),
+<<<<<<< HEAD
     (r"/QueryDailyTask", QueryDailyTask, None, '日常任务'),
     (r"/AddDailyTask", AddDailyTask, None, '添加任务')
+=======
+    (r"/queryWeeklyGoal", QueryWeeklyGoal, None, "查询周目标"),
+    (r"/addWeeklyGoal", QueryWeeklyGoal, None, "新增周目标"),
+    (r"/updateWeeklyGoal", QueryWeeklyGoal, None, "更新周目标"),
+    (r"/deleteWeeklyGoal", QueryWeeklyGoal, None, "删除周目标"),
+>>>>>>> 5c57fe6393b923698082fda024640647a576d38e
 ]

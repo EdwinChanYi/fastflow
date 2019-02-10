@@ -16,5 +16,10 @@ REDIS_USER_ID = 'user_detail_id_%s'                 # 用户根据id获取详情
 
 DAILY_TASK_TABLE = "daily_task"
 DAILY_TASK_KEY = {"id", "uid", "content", "summary", "state", "create_time", "aim"}
+<<<<<<< HEAD
 
 DBMGR = DBMgr()
+=======
+WEEKLY_GOAL_TABLE = 'weekly_goal'
+WEEKLY_GOAL_KEY = {}
+>>>>>>> 5c57fe6393b923698082fda024640647a576d38e

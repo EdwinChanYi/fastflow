@@ -47,13 +47,28 @@ class AddWeeklyGoal(BaseHandler):
 class UpdateWeeklyGoal(BaseHandler):
 
 	async def get(self):
-		return self.success_ret()
+		param = self.get_param()
+		updateData = param.get("updateData", {})
+		if CheckParam(updateData):
+			self.fail_ret(data={"msg": "param error"})
+		user = self.get_current_user()
+		updateData["uid"] = user
+
+		if DBMgr.Add(constant.WEEKLY_GOAL_TABLE, updateData.keys(), [updateData, ]):
+			self.success_ret()
+		else:
+			self.fail_ret()
 
 
 # 删除周目标
 class DeleteWeeklyGoal(BaseHandler):
 	async def get(self):
 		param = self.get_param()
-		deleteData = param.get("deleteData", {})
-		if (CheckParam(deleteData)):
-			return self.success_ret()
+
+		deleteData = param.get("id", {})
+		user = self.get_current_user()
+		deleteData["uid"] = user
+		if DBMgr.Del(constant.WEEKLY_GOAL_TABLE, deleteData.keys(), [deleteData,]):
+			self.success_ret()
+		else:
+			self.fail_ret()
