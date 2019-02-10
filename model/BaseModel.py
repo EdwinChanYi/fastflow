@@ -39,7 +39,7 @@ class BaseModel(object):
             mod = self.__db
         return Db.instance().conn(mod)
 
-    async def one(self, sql, param, mod=None):
+    async def one(self, sql, param=None, mod=None):
         if mod is None and self.__db:
             mod = self.__db
         conn = self.getConn(mod)
@@ -50,7 +50,18 @@ class BaseModel(object):
         conn.close()
         return res
 
-    async def all(self, sql, param=(), mod=None):
+    async def many(self, sql, limit, param=None, mod=None):
+        if mod is None and self.__db:
+            mod = self.__db
+        conn = self.getConn(mod)
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute(sql, param)
+        res = cursor.fetchmany(limit)
+        cursor.close()
+        conn.close()
+        return res
+
+    async def all(self, sql, param=None, mod=None):
         if mod is None and self.__db:
             mod = self.__db
         conn = self.getConn(mod)
@@ -61,7 +72,7 @@ class BaseModel(object):
         conn.close()
         return res
 
-    async def insert(self, sql, param, mod=None):
+    async def insert(self, sql, param=None, mod=None):
         if mod is None and self.__db:
             mod = self.__db
         conn = self.getConn(mod)
@@ -74,7 +85,7 @@ class BaseModel(object):
         insert_id = cursor.lastrowid
         return insert_id
 
-    async def update(self, sql, param, mod=None):
+    async def update(self, sql, param=None, mod=None):
         if not mod and self.__db:
             mod = self.__db
         conn = self.getConn(mod)
@@ -84,7 +95,7 @@ class BaseModel(object):
         conn.close()
         return row
 
-    async def delete(self, sql, param=(), mod=None):
+    async def delete(self, sql, param=None, mod=None):
         if not mod and self.__db:
             mod = self.__db
         conn = self.getConn(mod)
