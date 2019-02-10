@@ -41,4 +41,5 @@ class AddDailyTask(BaseHandler):
 			self.fail_ret()
 
 
-class DelDailyTask
+class DelDailyTask(BaseHandler):
+	pass
