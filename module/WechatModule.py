@@ -19,7 +19,7 @@ class WechatModule(object):
     GET_OPENID_URI = 'https://api.weixin.qq.com/sns/oauth2/access_token?'
 
     async def _request(self):
-        pass;
+        pass
 
     # 获取授权uri,此uri用于获取code
     def getAuthUri(self, shop, state, scope='snsapi_base'):

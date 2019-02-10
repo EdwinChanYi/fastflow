@@ -16,4 +16,4 @@ class WechatHandler(BaseHandler):
 class WechatVerifyHandler(BaseHandler):
 
     async def get(self):
-        return True;
+        return True

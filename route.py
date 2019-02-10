@@ -9,4 +9,6 @@ from handler import *
 route = [
     # 微信
     (r"/wechatVerify", WechatVerifyHandler, None, '微信接入验证'),
+    (r"/QueryDailyTask", QueryDailyTask, None, '日常任务'),
+    (r"/AddDailyTask", AddDailyTask, None, '添加任务')
 ]

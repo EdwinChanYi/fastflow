@@ -1,32 +1,14 @@
 db_config = {
-    'jigeyi' : {
+    'fastflow' : {
         'host'      : 'localhost',
         'user'      : 'root',
         'password'  : '123456',
-        'db'        : 'jigeyi',
+        'db'        : 'fastflow',
         'port'      : 3306,
         'charset'   : 'utf8',
         'num'       : 5 # 连接池连接数
     },
 
-    'clw' : {
-        'host'      : 'localhost',
-        'user'      : 'root',
-        'password'  : '123456',
-        'db'        : 'clw',
-        'port'      : 3306,
-        'charset'   : 'utf8',
-        'num'       : 5 # 连接池连接数
-    },
-    'shop_1234' : {
-        'host'      : 'localhost',
-        'user'      : 'root',
-        'password'  : '123456',
-        'db'        : 'shop_1234',
-        'port'      : 3306,
-        'charset'   : 'utf8',
-        'num'       : 5 # 连接池连接数
-    }
 }
 
 redis_config = {

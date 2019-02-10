@@ -3,3 +3,4 @@ from .Redis import *
 from .Log import *
 from .Decorate import *
 from .RedisMgr import *
+from .TimeUtil import *
