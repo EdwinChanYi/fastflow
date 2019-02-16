@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
+sys.path.extend(['D:\\Workspace\\Project\\fastflow-python\\fastflow\\library'])
+
 import tornado.ioloop
 import tornado.web
 from handler import *
@@ -8,7 +11,6 @@ from common import Db, Redis
 from route import route
 from tornado.gen import coroutine
 from tornado.concurrent import Future
-
 
 def hello_timer():
     # print("hello timer")
