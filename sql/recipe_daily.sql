@@ -1,4 +1,4 @@
-CREATE TABLE `week_aim` (
+CREATE TABLE `weekly_aim` (
   `id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '序号',
   `state` int(8) unsigned NOT NULL DEFAULT '0' COMMENT '进度',
   `aim` VARCHAR(5000) DEFAULT '' COMMENT '目标',
