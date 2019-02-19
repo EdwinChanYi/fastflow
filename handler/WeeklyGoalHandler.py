@@ -21,9 +21,8 @@ class QueryWeeklyGoal(BaseHandler):
 		queryDate = param.get("date", TimeUtil.NowTimestamp())
 		user = self.get_current_user()
 		monday = TimeUtil.FirstDayOfWeek()
-		back = DBMgr.DBMgr().Select(constant.DAILY_TASK_TABLE, uid=user, time=queryDate)
+		back = await constant.DBMGR.Select(constant.WEEKLY_GOAL_TABLE, uid=user, time=queryDate)
 		self.success_ret(back)
-		return True
 
 
 # 添加周目标
@@ -37,7 +36,8 @@ class AddWeeklyGoal(BaseHandler):
 		user = self.get_current_user()
 		addData["uid"] = user
 
-		if DBMgr.DBMgr().Add(constant.WEEKLY_GOAL_TABLE, addData.keys(), [addData, ]):
+		result = await constant.DBMGR.Add(constant.WEEKLY_GOAL_TABLE, addData.keys(), [addData, ])
+		if result:
 			self.success_ret()
 		else:
 			self.fail_ret()
@@ -54,7 +54,8 @@ class UpdateWeeklyGoal(BaseHandler):
 		user = self.get_current_user()
 		updateData["uid"] = user
 
-		if DBMgr.Add(constant.WEEKLY_GOAL_TABLE, updateData.keys(), [updateData, ]):
+		result = await constant.DBMGR.Add(constant.WEEKLY_GOAL_TABLE, updateData.keys(), [updateData, ])
+		if result:
 			self.success_ret()
 		else:
 			self.fail_ret()
@@ -68,7 +69,8 @@ class DeleteWeeklyGoal(BaseHandler):
 		deleteData = param.get("id", {})
 		user = self.get_current_user()
 		deleteData["uid"] = user
-		if DBMgr.Del(constant.WEEKLY_GOAL_TABLE, deleteData.keys(), [deleteData,]):
+		result = await constant.DBMGR.Del(constant.WEEKLY_GOAL_TABLE, deleteData.keys(), [deleteData,])
+		if result:
 			self.success_ret()
 		else:
 			self.fail_ret()
