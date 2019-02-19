@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-import sys
-sys.path.extend(['D:\\Workspace\\Project\\fastflow-python\\fastflow\\library'])
-
+import platform
+sysStr = platform.system()
+if sysStr == "Windows":
+    import sys
+    sys.path.extend(['.\\library'])
 import tornado.ioloop
 import tornado.web
 from handler import *
@@ -11,6 +12,7 @@ from common import Db, Redis
 from route import route
 from tornado.gen import coroutine
 from tornado.concurrent import Future
+
 
 def hello_timer():
     # print("hello timer")
@@ -31,8 +33,8 @@ if __name__ == "__main__":
     iol = tornado.ioloop.IOLoop.current()
     # 定时器 毫秒为单位
     tornado.ioloop.PeriodicCallback(
-        hello_timer,1000
+        hello_timer, 1000
     ).start()
-    print('app start on',8000)
+    print('app start on', 8000)
     iol.start()
 

@@ -47,7 +47,8 @@ class DBMgr(BaseModel):
 			deleteCond.append("{}={}".format(key, value))
 
 		delSql = "DELETE FROM {} WHERE {} AND {}".format(table, ",".join(deleteCond))
-		return self.delete(delSql, mod=database)
+		result = await self.delete(delSql, mod=database)
+		return result
 
 	@redis_get()
 	async def Select(self, table, database="fastflow", limit=100, **kwgs):
@@ -57,7 +58,8 @@ class DBMgr(BaseModel):
 		for key, value in kwgs.items():
 			queryCond.append("{}={}".format(key, value))
 		selectSql = "SELECT FROM {} WHERE {} LIMIT {}".format(table, ",".join(queryCond), limit)
-		return self.many(selectSql, limit, mod=database)
+		result = await self.many(selectSql, limit, mod=database)
+		return result
 
 	@redis_add()
 	async def Add(self, table, keys, dataList, database="fastflow"):
@@ -71,7 +73,8 @@ class DBMgr(BaseModel):
 			insertOneData = "({})".format(",".join(insertOneData))
 			batchStr.append(insertOneData)
 		instertSql = 'Replace INTO {}({}) VALUES {}'.format(table, ",".join(keys), ",".join(batchStr))
-		return self.insert(instertSql, mod=database)
+		result = await self.insert(instertSql, mod=database)
+		return result
 
 	@redis_modify()
 	async def Modify(self, table, modifyData, condition, database="fastflow"):
@@ -85,5 +88,5 @@ class DBMgr(BaseModel):
 			condStr.append("{}={}".format(key, value))
 		updateSql = 'UPDATE FROM {} SET {} WHERE {}'.format(table,
 		        ",".join(batchStr), " AND ".join(condStr))
-		return self.update(updateSql, mod=database)
-
+		result = await self.update(updateSql, mod=database)
+		return result

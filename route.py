@@ -11,6 +11,8 @@ route = [
     (r"/wechatVerify", WechatVerifyHandler, None, '微信接入验证'),
     (r"/QueryDailyTask", QueryDailyTask, None, '日常任务'),
     (r"/AddDailyTask", AddDailyTask, None, '添加任务'),
+    (r"/DelDailyTask", DelDailyTask, None, '删除任务'),
+    (r"/ModifyDailyTask", ModifyDailyTask, None, '修改任务'),
     (r"/queryWeeklyGoal", QueryWeeklyGoal, None, "查询周目标"),
     (r"/addWeeklyGoal", AddWeeklyGoal, None, "新增周目标"),
     (r"/updateWeeklyGoal", UpdateWeeklyGoal, "更新周目标"),
