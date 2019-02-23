@@ -89,7 +89,7 @@ class DBMgr(BaseModel):
 		for key, value in modifyData.items():
 			batchStr.append("{}={}".format(key, value))
 		condStr = []
-		for key, value in condition.items:
+		for key, value in condition.items():
 			condStr.append("{}={}".format(key, value))
 		updateSql = 'UPDATE {} SET {} WHERE {}'.format(table,
 		        ",".join(batchStr), " AND ".join(condStr))

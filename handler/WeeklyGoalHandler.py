@@ -64,11 +64,16 @@ class DeleteWeeklyGoal(BaseHandler):
 	async def get(self):
 		param = self.get_param()
 
-		deleteData = param.get("id", {})
+		deleteData = {}
+		deleteData['id'] = param.get("id", {})
 		user = self.get_current_user()
 		deleteData["uid"] = user
+
+		modifyData = {
+			'state': int(2)
+		}
 		# if DBMgr.Del(constant.WEEKLY_AIM_TABLE, deleteData.keys(), [deleteData, ]):
-		result = await constant.DBMGR.Del(constant.WEEKLY_AIM_TABLE, deleteData.keys(), [deleteData,])
+		result = await constant.DBMGR.Modify(constant.WEEKLY_AIM_TABLE, modifyData, deleteData)
 		if result:
 			self.success_ret()
 		else:
