@@ -21,5 +21,5 @@ DAILY_TASK_KEY = {"id", "uid", "content", "summary", "state", "create_time", "ai
 DBMGR = DBMgr()
 
 WEEKLY_AIM_TABLE = 'weekly_aim'
-WEEKLY_AIM_KEY = {"id", "uid", "weekId", "content", "summary", "state", "create_time"}
+WEEKLY_AIM_KEY = {"id", "uid", "weekId", "aim", "summary", "state", "create_time"}
 

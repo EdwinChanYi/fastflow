@@ -2,13 +2,14 @@
 # -*- coding: utf-8 -*-
 from common import TimeUtil
 from handler import BaseHandler, constant
-from model import DBMgr
+
 
 def CheckParam(dataDict):
 	for key in dataDict.keys():
 		if key not in constant.WEEKLY_AIM_KEY:
 			return False
 	return True
+
 
 # 查询周目标
 class QueryWeeklyGoal(BaseHandler):
@@ -53,13 +54,33 @@ class UpdateWeeklyGoal(BaseHandler):
 
 	async def get(self):
 		param = self.get_param()
-		updateData = param.get("updateData", {})
-		if CheckParam(updateData):
-			self.fail_ret(data={"msg": "param error"})
-		user = self.get_current_user()
-		updateData["uid"] = user
+		id = param.get('id', -1)
+		aim = param.get("aim", "")
+		summary = param.get("summary", "")
+		state = param.get("state", 0)
 
-		result = await constant.DBMGR.Add(constant.WEEKLY_AIM_TABLE, updateData.keys(), [updateData, ])
+		if id == -1 :
+			self.fail_ret(data={"msg": "ID 为空"})
+			return
+
+		updateData = {}
+		conditionData = {}
+
+		conditionData['id'] = int(id)
+		if aim != "":
+			updateData["aim"] = aim
+		if summary != "":
+			updateData["summary"] = summary
+		updateData['state'] = int(state)
+
+		if CheckParam(updateData) == False:
+			self.fail_ret(data={"msg": "param error"})
+			return
+
+		user = self.get_current_user()
+		conditionData["uid"] = int(user)
+
+		result = await constant.DBMGR.Modify(constant.WEEKLY_AIM_TABLE, updateData, conditionData)
 		if result:
 			self.success_ret()
 		else:
@@ -68,19 +89,20 @@ class UpdateWeeklyGoal(BaseHandler):
 
 # 删除周目标
 class DeleteWeeklyGoal(BaseHandler):
+
 	async def get(self):
 		param = self.get_param()
 
-		deleteData = {}
-		deleteData['id'] = param.get("id", {})
+		conditionData = {}
+		conditionData['id'] = param.get("id", {})
 		user = self.get_current_user()
-		deleteData["uid"] = user
+		conditionData["uid"] = user
 
 		modifyData = {
 			'state': int(2)
 		}
-		# if DBMgr.Del(constant.WEEKLY_AIM_TABLE, deleteData.keys(), [deleteData, ]):
-		result = await constant.DBMGR.Modify(constant.WEEKLY_AIM_TABLE, modifyData, deleteData)
+
+		result = await constant.DBMGR.Modify(constant.WEEKLY_AIM_TABLE, modifyData, conditionData)
 		if result:
 			self.success_ret()
 		else:

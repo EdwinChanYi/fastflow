@@ -15,6 +15,6 @@ route = [
     (r"/ModifyDailyTask", ModifyDailyTask, None, '修改任务'),
     (r"/queryWeeklyGoal", QueryWeeklyGoal, None, "查询周目标"),
     (r"/addWeeklyGoal", AddWeeklyGoal, None, "新增周目标"),
-    (r"/updateWeeklyGoal", UpdateWeeklyGoal, "更新周目标"),
+    (r"/updateWeeklyGoal", UpdateWeeklyGoal, None, "更新周目标"),
     (r"/deleteWeeklyGoal", DeleteWeeklyGoal, None, "删除周目标"),
 ]

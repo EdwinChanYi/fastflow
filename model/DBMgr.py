@@ -90,7 +90,10 @@ class DBMgr(BaseModel):
 			return -1
 		batchStr = []
 		for key, value in modifyData.items():
-			batchStr.append("{}={}".format(key, value))
+			if isinstance(value, str):
+				batchStr.append('{}="{}"'.format(key, value))
+			else :
+				batchStr.append("{}={}".format(key, value))
 		condStr = []
 		for key, value in condition.items():
 			condStr.append("{}={}".format(key, value))
