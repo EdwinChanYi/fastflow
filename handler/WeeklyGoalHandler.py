@@ -29,10 +29,17 @@ class AddWeeklyGoal(BaseHandler):
 	async def get(self):
 		param = self.get_param()
 		addData = param.get("addData", {})
+		aim = param.get("aim", "")
+		if aim == "":
+			self.fail_ret()
+		addData['aim'] = aim
 		if CheckParam(addData):
 			self.fail_ret(data={"msg": "param error"})
+
 		user = self.get_current_user()
 		addData["uid"] = user
+		monday = TimeUtil.FirstDayOfWeek()
+		addData['weekId'] = int(monday)
 
 		result = await constant.DBMGR.Add(constant.WEEKLY_AIM_TABLE, addData.keys(), [addData, ])
 		if result:

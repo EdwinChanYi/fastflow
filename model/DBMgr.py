@@ -75,7 +75,10 @@ class DBMgr(BaseModel):
 		for data in dataList:
 			insertOneData = []
 			for key, value in data.items():
-				insertOneData.append("{}={}".format(key, value))
+				if isinstance(value, str):
+					insertOneData.append("'{}'". format(value))
+				else:
+					insertOneData.append("{}".format(value))
 			insertOneData = "({})".format(",".join(insertOneData))
 			batchStr.append(insertOneData)
 		instertSql = 'Replace INTO {}({}) VALUES {}'.format(table, ",".join(keys), ",".join(batchStr))
