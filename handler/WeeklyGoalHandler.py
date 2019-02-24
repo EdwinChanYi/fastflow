@@ -34,7 +34,7 @@ class AddWeeklyGoal(BaseHandler):
 		if aim == "":
 			self.fail_ret()
 		addData['aim'] = aim
-		if CheckParam(addData):
+		if CheckParam(addData) == False:
 			self.fail_ret(data={"msg": "param error"})
 
 		user = self.get_current_user()
